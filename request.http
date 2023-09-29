@@ -1,0 +1,50 @@
+@idCorrecao = {{novaCorrecao.response.body.id}}
+@idCriterio = {{novaCorrecao.response.body.correcao.criterios[0].id}}
+@idMarcacao = {{criacaoMarcacao.response.body.id}}
+@idMarcacaoDeleted = {{criacaoMarcacao.response.body.id}}
+
+###
+
+# @name novaCorrecao
+POST http://localhost:3000/correcao/init
+
+###
+GET http://localhost:3000/correcao/{{idCorrecao}}
+
+###
+# @name criacaoMarcacao
+POST http://localhost:3000/correcao/{{idCorrecao}}/marker
+Content-Type: application/json
+
+{
+  "mode": "teste 1"
+}
+
+###
+PATCH http://localhost:3000/correcao/{{idCorrecao}}/marker/{{idMarcacao}}
+Content-Type: application/json
+
+{
+  "mode": "teste 2"
+}
+
+###
+DELETE http://localhost:3000/correcao/{{idCorrecao}}/marker/{{idMarcacaoDeleted}}
+
+###
+PUT http://localhost:3000/correcao/{{idCorrecao}}/criterios/{{idCriterio}}
+Content-Type: application/json
+
+{
+  "nota": 10,
+  "comentario": "teste"
+}
+
+###
+PUT http://localhost:3000/correcao/{{idCorrecao}}/final_comment
+Content-Type: application/json
+
+{
+  "tipo": "text",
+  "content": "content 123"
+}
